@@ -1,0 +1,44 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+func main() {
+
+	reader := bufio.NewReader(os.Stdin)
+
+	// 1. Leer nombre y apellido
+	fmt.Print("Ingrese un nombre: ")
+	nombre, _ := reader.ReadString('\n')
+	nombre = strings.TrimSpace(nombre)
+
+	fmt.Print("Ingrese su apellido: ")
+	apellido, _ := reader.ReadString('\n')
+	apellido = strings.TrimSpace(apellido)
+
+	fmt.Println("Hola", nombre, apellido)
+
+	// 2. Leer ciudad y país
+	fmt.Print("Ingrese su ciudad: ")
+	ciudad, _ := reader.ReadString('\n')
+	ciudad = strings.TrimSpace(ciudad)
+
+	fmt.Print("Ingrese su país: ")
+	pais, _ := reader.ReadString('\n')
+	pais = strings.TrimSpace(pais)
+
+	fmt.Println("Vive en:", ciudad + ", " + pais)
+
+	// 3. Leer una frase
+	fmt.Print("Ingrese una frase: ")
+	frase, _ := reader.ReadString('\n')
+
+	frase = strings.TrimSpace(frase)
+
+	fmt.Println("La frase sin espacios al inicio y final es:")
+	fmt.Println(frase)
+}
