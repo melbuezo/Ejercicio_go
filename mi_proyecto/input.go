@@ -16,4 +16,4 @@ func leerTexto(promt string) (string, error){
 		return "", err
 	}
 	return strings.TrimSpace(texto), nil
-}
+}//hola

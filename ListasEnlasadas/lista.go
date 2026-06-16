@@ -1,50 +1,97 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Listas struct {
-	Cabeza *Nodo // puntero al primer nodo
+	cabeza *Nodo
 }
 
-func (Lis *Listas) Insertar(valor int) {
-	nuevo := &Nodo{Valor: valor} // crear un nuevo nodo con el valor dado
-	nuevo.Siguiente = Lis.Cabeza // el siguiente del nuevo nodo apunta a la cabeza actual
-	Lis.Cabeza = nuevo           // la cabeza ahora es el nuevo nodo
-
-}
-
-// insertar al final de la lista
-func (Lis *Listas) InsertarAlFinal(valor int) {
-	nuevo := &Nodo{Valor: valor}
-	if Lis.Cabeza == nil {
-		Lis.Cabeza = nuevo
+func (l *Listas) InsertarInicioFinal(dato int) {
+	nuevo := &Nodo{dato: dato}
+	if l.cabeza == nil {
+		l.cabeza = nuevo
 		return
 	}
-	actualizar := Lis.Cabeza
-	for actualizar.Siguiente != nil {
-		actualizar = actualizar.Siguiente
+	actual := l.cabeza
+	for actual.siguiente != nil {
+		actual = actual.siguiente
 	}
-	actualizar.Siguiente = nuevo
+	actual.siguiente = nuevo
 }
 
-//imprimir la lista
-func (Lis *Listas) Imprimir() {
-	ListaCompleta := Lis.Cabeza
-	for ListaCompleta != nil {
-		fmt.Printf("%d ", ListaCompleta.Valor)
-		ListaCompleta = ListaCompleta.Siguiente
+func (l *Listas) Longitud() int {
+	contador := 0
+	actual := l.cabeza
+	for actual != nil {
+		contador++
+		actual = actual.siguiente
 	}
-	fmt.Println("null")
+	return contador
 }
 
-// buscar,vericar, analizar si un valor existe en la lista
-func (Lis *Listas) Buscar(valor int) bool {
-	ListaCompleta := Lis.Cabeza
-	for ListaCompleta != nil {
-		if ListaCompleta.Valor == valor {
+func (l *Listas) UltimoValor() (int, bool) {
+	if l.cabeza == nil {
+		return 0, false
+	}
+	actual := l.cabeza
+	for actual.siguiente != nil {
+		actual = actual.siguiente
+	}
+	return actual.dato, true
+}
+
+func (l *Listas) InsertarDespuesDelPenultimo(dato int) {
+	if l.cabeza == nil || l.cabeza.siguiente == nil {
+		l.InsertarInicioFinal(dato)
+		return
+	}
+	actual := l.cabeza
+	for actual.siguiente != nil && actual.siguiente.siguiente != nil {
+		actual = actual.siguiente
+	}
+	nuevo := &Nodo{dato: dato, siguiente: actual.siguiente}
+	actual.siguiente = nuevo
+}
+
+func (l *Listas) Buscar(dato int) bool {
+	actual := l.cabeza
+	for actual != nil {
+		if actual.dato == dato {
 			return true
 		}
-		ListaCompleta = ListaCompleta.Siguiente
+		actual = actual.siguiente
 	}
 	return false
+}
+
+func (l *Listas) Eliminar(dato int) {
+	if l.cabeza == nil {
+		return
+	}
+	if l.cabeza.dato == dato {
+		l.cabeza = l.cabeza.siguiente
+		return
+	}
+	actual := l.cabeza
+	for actual.siguiente != nil {
+		if actual.siguiente.dato == dato {
+			actual.siguiente = actual.siguiente.siguiente
+			return
+		}
+		actual = actual.siguiente
+	}
+}
+
+func (l *Listas) imprimir() {
+	actual := l.cabeza
+	for actual != nil {
+		fmt.Printf("%d", actual.dato)
+		if actual.siguiente != nil {
+			fmt.Print(" -> ")
+		}
+		actual = actual.siguiente
+	}
+	fmt.Println()
 }

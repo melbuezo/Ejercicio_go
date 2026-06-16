@@ -1,6 +1,6 @@
 package main
 
 type Nodo struct {
-	Valor    int   // valor del nodo
-	Siguiente *Nodo // puntero al siguiente nodo
+	dato      int
+	siguiente *Nodo
 }
