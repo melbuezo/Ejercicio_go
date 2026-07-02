@@ -4,28 +4,30 @@ import "fmt"
 
 func main() {
 	lista := Listas{}
+	lista.InsertarAlFinal(5)
+	lista.InsertarAlFinal(10)
+	lista.InsertarAlFinal(15)
+	lista.InsertarAlFinal(10) 
+	lista.InsertarAlFinal(20)
+	lista.InsertarAlFinal(30)
+	lista.Imprimir() // Imprime: 5 10 15 20 30 null
 
-	lista.InsertarInicioFinal(10)
-	lista.InsertarInicioFinal(20)
-	lista.InsertarInicioFinal(5)
-	lista.InsertarInicioFinal(50)
+	fmt.Println("Buscar el dato 100:", lista.Buscar(100))
 
-	fmt.Println("--- Ejercicio 1 ---")
-	lista.imprimir()
+	lista.Eliminar(5)
+	fmt.Print("Despues de eliminar 5: ")
+	lista.Imprimir()
 
-	fmt.Printf("Longitud actual: %d\n", lista.Longitud())
-	if ult, ok := lista.UltimoValor(); ok {
-		fmt.Printf("Último valor: %d\n", ult)
+	central, err := lista.ElementoCentral()
+	if err == nil {
+		fmt.Println("Elemento central:", central)
 	}
 
-	fmt.Println("\n--- Ejercicio 2 ---")
-	lista.InsertarDespuesDelPenultimo(99)
-	lista.imprimir()
-	fmt.Printf("Nueva longitud: %d\n", lista.Longitud())
+	lista.EliminarDuplicados()
+	fmt.Print("Eliminar duplicados: ")
+	lista.Imprimir()
 
-	fmt.Println("\n--- Ejercicio 3 ---")
-	fmt.Println("BUSCAR UN DATO 100:", lista.Buscar(100))
-
-	lista.Eliminar(10)
-	lista.imprimir()
+	lista.Invertir()
+	fmt.Print("Lista invertida: ")
+	lista.Imprimir()
 }
