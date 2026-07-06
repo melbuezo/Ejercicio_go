@@ -48,6 +48,53 @@ func (pila *Pila) Peek() (interface{}, error) {
 func (pila *Pila) Si_EstaVacia() bool {
     return pila.tope == nil
 }
+// Ejercicio 1: Separar pila en pares e impares
+func SepararParesImpares(p *Pila) (*Pila, *Pila) {
+	pares := PilaNueva()
+	impares := PilaNueva()
+	temp := PilaNueva()
+
+	// Vaciamos la pila original guardando el orden en temp
+	for !p.EstaVacia() {
+		valor, _ := p.Pop()
+		numero := valor.(int)
+		if numero%2 == 0 {
+			pares.Push(numero)
+		} else {
+			impares.Push(numero)
+		}
+		temp.Push(numero)
+	}
+
+	// Restauramos la pila original para no dejarla vacía
+	for !temp.EstaVacia() {
+		valor, _ := temp.Pop()
+		p.Push(valor)
+	}
+
+	return pares, impares
+}
+
+// Ejercicio 2: Invertir una pila
+func InvertirPila(p *Pila) *Pila {
+	auxiliar := PilaNueva()
+	invertida := PilaNueva()
+
+	// Pasamos todo a una pila auxiliar (queda en orden inverso)
+	for !p.EstaVacia() {
+		valor, _ := p.Pop()
+		auxiliar.Push(valor)
+	}
+
+	// Pasamos de auxiliar a invertida y reconstruimos la original
+	for !auxiliar.EstaVacia() {
+		valor, _ := auxiliar.Pop()
+		invertida.Push(valor)
+		p.Push(valor)
+	}
+
+	return invertida
+}
 
 // Tamaño retorna el número de elementos en la pila
 func (pila *Pila) Tamanio() int {
