@@ -75,27 +75,6 @@ func SepararParesImpares(p *Pila) (*Pila, *Pila) {
 	return pares, impares
 }
 
-// Ejercicio 2: Invertir una pila
-func InvertirPila(p *Pila) *Pila {
-	auxiliar := PilaNueva()
-	invertida := PilaNueva()
-
-	// Pasamos todo a una pila auxiliar (queda en orden inverso)
-	for !p.EstaVacia() {
-		valor, _ := p.Pop()
-		auxiliar.Push(valor)
-	}
-
-	// Pasamos de auxiliar a invertida y reconstruimos la original
-	for !auxiliar.EstaVacia() {
-		valor, _ := auxiliar.Pop()
-		invertida.Push(valor)
-		p.Push(valor)
-	}
-
-	return invertida
-}
-
 // Tamaño retorna el número de elementos en la pila
 func (pila *Pila) Tamanio() int {
     return pila.tamanio
